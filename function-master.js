@@ -214,12 +214,17 @@ function nonFriends(name, array) {
     //iterate through array for names
     for (let index = 0; index < array.length; index++ ){
         if(array[index]["name"] !== name){
+          var matches = [];
             //iterate through the friends array in array-object 
            for(let j = 0; j < array[index]["friends"].length; j++){
-            //add name if <name> is not on friends list
-            if(array[index]["friends"][j] === name){
-                  outputArray.push(array[index]["name"]);  
+            if (name === array[index]["friends"][j]){
+              //loop through to check for match of name - add one if name matches
+              matches.push(1);
             }
+            }
+          if(matches.length === 0){
+            //if there are no matches - name should be added to outputArray
+                  outputArray.push(array[index]["name"]);
            }
            
         }
@@ -230,9 +235,13 @@ function nonFriends(name, array) {
 //////////////////////////////////////////////////////////////////////
 // Function 14 - Update Object ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+//input - object, key, and value
+//update the object with new key/value pair
 function updateObject(object, key, value) {
-
+    //update object
+    object[key] = value;
+    //return updated object
+    return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -240,15 +249,41 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    //iterate through array to get keys to remove
+    for (let index = 0; index < array.length; index++){
+        //remove the key from object
+        let key = array[index];
+        //object.key = null;
+        delete object[key];
+    }
+    //return updated object
+    return object;
 }
 
 //////////////////////////////////////////////////////////////////////
 // Function 16 - Dedup ///////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+//i: takes array
+//o: return array with duplicates removed
 function dedup(array) {
-
+    let outputArray = [];
+      //iterate through input array
+    for(let index = 0; index < array.length; index++){  
+        //iterate through the outputArray
+      //use matches array to count if array[index] is in outputArray  
+      var matches = [];
+    for(let j = 0; j < outputArray.length; j++){
+      //check if array[index] matches outputArray[jdex]
+        if(array[index] === outputArray[j]){
+          matches.push(1);
+        } 
+      }
+      //if no matches - add to outputArray
+      if(matches.length === 0){
+            outputArray.push(array[index]);
+          }
+    }
+  return outputArray;
 }
 
 //////////////////////////////////////////////////////////////////////
